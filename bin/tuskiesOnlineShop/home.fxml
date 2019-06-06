@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="1092.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuskiesOnlineShop.HomeController">
+   <center>
+      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <tabs>
+          <Tab text="Shop">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <BorderPane layoutX="69.0" layoutY="14.0" prefHeight="338.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                           <center>
+                              <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                                <tabs>
+                                  <Tab fx:id="electronicsTab" text="Electronics">
+                                       <content>
+                                          <Pagination fx:id="electronicsPagination" currentPageIndex="1" maxPageIndicatorCount="5" pageCount="30" prefHeight="200.0" prefWidth="200.0" />
+                                       </content>
+                                  </Tab>
+                                  <Tab text="Furniture">
+                                       <content>
+                                          <Pagination fx:id="furniturePagination" maxPageIndicatorCount="5" pageCount="30" prefHeight="200.0" prefWidth="200.0" />
+                                       </content>
+                                  </Tab>
+                                    <Tab text="Foods and drinks">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Pagination fx:id="foodsAndDrinkPagination" layoutX="-6.0" maxPageIndicatorCount="5" pageCount="30" prefHeight="378.0" prefWidth="982.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="Clothing">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Pagination fx:id="clothingPagination" layoutX="73.0" layoutY="8.0" maxPageIndicatorCount="5" pageCount="30" prefHeight="378.0" prefWidth="982.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="Sports and outdoor">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <Pagination fx:id="sportsAndOutDoorPagation" layoutX="72.0" maxPageIndicatorCount="5" pageCount="30" prefHeight="378.0" prefWidth="982.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                             </children></AnchorPane>
+                                      </content>
+                                    </Tab>
+                                    <Tab text="Untitled Tab">
+                                      <content>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                      </content>
+                                    </Tab>
+                                </tabs>
+                              </TabPane>
+                           </center></BorderPane>
+                        <ToolBar layoutX="8.0" layoutY="-6.0" prefHeight="40.0" prefWidth="594.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <items>
+                              <Label prefHeight="15.0" prefWidth="166.0" />
+                              <TextField prefHeight="25.0" prefWidth="341.0" promptText="enter product to search" />
+                            <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="74.0">
+                                 <graphic>
+                                    <ImageView fitHeight="19.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0">
+                                       <image>
+                                          <Image url="@../../../../Dev/onlineshopproject/Resources/icons/015-find.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Label prefHeight="15.0" prefWidth="482.0" />
+                              <Button fx:id="signinSignupBtn" mnemonicParsing="false" onAction="#signinSignupButtonPushed" prefHeight="32.0" prefWidth="133.0" text="login / Sign up" />
+                              <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="59.0">
+                                 <graphic>
+                                    <ImageView fitHeight="22.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Dev/onlineshopproject/Resources/icons/avatar.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                              <Button mnemonicParsing="false">
+                                 <graphic>
+                                    <ImageView fitHeight="21.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../../../Dev/onlineshopproject/Resources/icons/settings.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                          </items>
+                        </ToolBar>
+                     </children>
+                  </AnchorPane>
+            </content>
+               <graphic>
+                  <ImageView fitHeight="26.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Dev/onlineshopproject/Resources/icons/shopping-bag.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+          </Tab>
+          <Tab text="Cart">
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Dev/onlineshopproject/Resources/icons/shopping-cart.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <content>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <TableView prefHeight="451.0" prefWidth="942.0">
+                          <columns>
+                            <TableColumn prefWidth="298.0" text="Image" />
+                            <TableColumn minWidth="0.0" prefWidth="145.0" text="Description" />
+                              <TableColumn minWidth="0.0" prefWidth="145.0" text="units" />
+                              <TableColumn minWidth="0.0" prefWidth="151.0" text="units" />
+                              <TableColumn minWidth="0.0" prefWidth="98.0" text="units" />
+                          </columns>
+                        </TableView>
+                        <VBox prefHeight="451.0" prefWidth="164.0">
+                           <children>
+                              <StackPane prefHeight="150.0" prefWidth="200.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </content>
+          </Tab>
+            <Tab text="contacts">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              </content>
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../Dev/onlineshopproject/Resources/icons/envelope.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Tab>
+            <Tab text="Admin">
+               <content>
+                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Products">
+                           <content>
+                              <Accordion>
+                                <panes>
+                                  <TitledPane animated="false" text="Add">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <BorderPane layoutX="307.0" layoutY="60.0" prefHeight="342.0" prefWidth="980.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <left>
+                                                      <StackPane prefHeight="253.0" prefWidth="395.0" style="-fx-border-color: #177516; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <ImageView fx:id="imageView" fitHeight="216.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </children>
+                                                      </StackPane>
+                                                   </left>
+                                                   <center>
+                                                      <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <ComboBox fx:id="categoryComboBox" prefWidth="300.0" promptText="Category">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" top="10.0" />
+                                                               </VBox.margin>
+                                                            </ComboBox>
+                                                            <ComboBox fx:id="subCategoryComboBox" prefWidth="300.0" promptText="sub-category">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" top="10.0" />
+                                                               </VBox.margin>
+                                                            </ComboBox>
+                                                            <TextField fx:id="productNameTextField" alignment="CENTER" promptText="product name">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" top="10.0" />
+                                                               </VBox.margin>
+                                                            </TextField>
+                                                            <TextField fx:id="serialNumberTextField" alignment="CENTER" promptText="serailNumber">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" />
+                                                               </VBox.margin>
+                                                            </TextField>
+                                                            <TextField fx:id="unitPriceTextField" alignment="CENTER" layoutX="10.0" layoutY="10.0" promptText="unit price">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" />
+                                                               </VBox.margin>
+                                                            </TextField>
+                                                            <TextField fx:id="quantityTextField" alignment="CENTER" layoutX="10.0" layoutY="35.0" promptText="quantity">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" />
+                                                               </VBox.margin>
+                                                            </TextField>
+                                                            <StackPane prefHeight="32.0" prefWidth="285.0">
+                                                               <children>
+                                                                  <Button fx:id="addImageButton" mnemonicParsing="false" onAction="#addImageButtonPressed" text="Add image" />
+                                                               </children>
+                                                            </StackPane>
+                                                            <TextArea fx:id="descriptionTextArea" prefHeight="113.0" prefWidth="451.0" promptText="description" VBox.vgrow="NEVER">
+                                                               <VBox.margin>
+                                                                  <Insets left="10.0" right="10.0" />
+                                                               </VBox.margin>
+                                                            </TextArea>
+                                                         </children>
+                                                         <BorderPane.margin>
+                                                            <Insets left="10.0" />
+                                                         </BorderPane.margin>
+                                                      </VBox>
+                                                   </center>
+                                                   <right>
+                                                      <StackPane prefHeight="253.0" prefWidth="370.0" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <HBox prefHeight="293.0" prefWidth="370.0">
+                                                               <children>
+                                                                  <Button fx:id="addNewItemButton" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#addNewItemButtonPressed" prefHeight="25.0" prefWidth="76.0" text="submit">
+                                                                     <HBox.margin>
+                                                                        <Insets top="330.0" />
+                                                                     </HBox.margin>
+                                                                  </Button>
+                                                                  <AnchorPane prefHeight="229.0" prefWidth="234.0">
+                                                                     <children>
+                                                                        <Label fx:id="productNamePreviewLabel" layoutX="45.0" layoutY="22.0" prefHeight="29.0" prefWidth="167.0" textFill="#177516" />
+                                                                        <Label fx:id="unitPricePreviewLabel" layoutX="45.0" layoutY="51.0" prefHeight="29.0" prefWidth="167.0" textFill="#177516" />
+                                                                        <Label fx:id="quantityPreviewLabel" layoutX="45.0" layoutY="80.0" prefHeight="29.0" prefWidth="167.0" textFill="#177516" />
+                                                                        <Label fx:id="modelPreviewLabel" layoutX="45.0" layoutY="109.0" prefHeight="29.0" prefWidth="167.0" textFill="#177516" />
+                                                                        <Label fx:id="warrantyPreviewLabel" layoutX="45.0" layoutY="138.0" prefHeight="29.0" prefWidth="167.0" textFill="#177516" />
+                                                                        <Label fx:id="fileSelected" layoutX="45.0" layoutY="167.0" prefHeight="31.0" prefWidth="149.0" />
+                                                                     </children>
+                                                                     <effect>
+                                                                        <Bloom />
+                                                                     </effect>
+                                                                     <HBox.margin>
+                                                                        <Insets />
+                                                                     </HBox.margin>
+                                                                  </AnchorPane>
+                                                               </children>
+                                                            </HBox>
+                                                         </children></StackPane>
+                                                   </right>
+                                                   <top>
+                                                      <StackPane prefHeight="69.0" prefWidth="960.0" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <Label fx:id="addItemLabel" alignment="CENTER" prefHeight="30.0" prefWidth="233.0" textFill="#31e14e">
+                                                               <font>
+                                                                  <Font name="System Bold Italic" size="19.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children></StackPane>
+                                                   </top>
+                                                </BorderPane>
+                                             </children>
+                                          </AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" text="Edit">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                    </content>
+                                  </TitledPane>
+                                  <TitledPane animated="false" text="Delete">
+                                    <content>
+                                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                             <children>
+                                                <BorderPane prefHeight="342.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <top>
+                                                      <StackPane prefHeight="67.0" prefWidth="1046.0" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Button fx:id="deleteSearchButton" layoutX="737.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteSearchButtonPressed" prefHeight="20.0" prefWidth="26.0" style="-fx-border-radius: 10;">
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="32.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../../../../Dev/onlineshopproject/Resources/icons/magnifying-glass.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </Button>
+                                                                  <Label fx:id="deleteItemInfoLabel" alignment="CENTER" layoutX="803.0" layoutY="19.0" prefHeight="30.0" prefWidth="267.0" textFill="#e40c0c">
+                                                                     <font>
+                                                                        <Font name="System Bold Italic" size="19.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <TextField fx:id="deleteSearchTextField" alignment="CENTER" layoutX="423.0" layoutY="17.0" prefHeight="34.0" prefWidth="307.0" promptText="search" style="-fx-border-radius: 20; -fx-border-color: #607D8B;" />
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                      </StackPane>
+                                                   </top>
+                                                   <left>
+                                                      <StackPane prefHeight="223.0" prefWidth="395.0" style="-fx-border-color: #5D4037; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <ImageView fx:id="deleteImageView" fitHeight="269.0" fitWidth="300.0" pickOnBounds="true" preserveRatio="true" />
+                                                         </children>
+                                                      </StackPane>
+                                                   </left>
+                                                   <right>
+                                                      <HBox alignment="CENTER" prefHeight="255.0" prefWidth="319.0" spacing="20.0" style="-fx-background-color: #757575;" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <Button fx:id="deleteItemButton" alignment="BOTTOM_CENTER" contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteItemButtonPressed" opacity="0.85" prefHeight="53.0" prefWidth="107.0" text="Delete">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="38.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../Dev/onlineshopproject/Resources/icons/garbage.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                         </children>
+                                                      </HBox>
+                                                   </right>
+                                                   <center>
+                                                      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #607D8B;">
+                                                               <children>
+                                                                  <Label fx:id="successDeleteMessageLabel" alignment="CENTER" prefHeight="41.0" prefWidth="281.0" textFill="#c61b1b">
+                                                                     <font>
+                                                                        <Font name="DejaVu Sans Oblique" size="13.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                                  <Label fx:id="deleteLabel" alignment="BOTTOM_LEFT" prefHeight="155.0" prefWidth="241.0" wrapText="true">
+                                                                     <VBox.margin>
+                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                     </VBox.margin>
+                                                                     <padding>
+                                                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                                                     </padding></Label>
+                                                               </children>
+                                                            </VBox>
+                                                         </children>
+                                                      </StackPane>
+                                                   </center>
+                                                </BorderPane>
+                                             </children></AnchorPane>
+                                    </content>
+                                  </TitledPane>
+                                </panes>
+                              </Accordion>
+                           </content>
+                      </Tab>
+                      <Tab text="Users" />
+                        <Tab text="Annalysis" />
+                    </tabs>
+                  </TabPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </center>
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
