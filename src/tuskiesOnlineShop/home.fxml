@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="513.0" prefWidth="1092.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuskiesOnlineShop.HomeController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1311.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuskiesOnlineShop.HomeController">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -22,41 +22,98 @@
                            <center>
                               <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                                 <tabs>
-                                  <Tab fx:id="electronicsTab" text="Electronics">
+                                  <Tab text="All items">
                                        <content>
-                                          <Pagination fx:id="electronicsPagination" currentPageIndex="1" maxPageIndicatorCount="5" pageCount="30" prefHeight="200.0" prefWidth="200.0" />
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                                             <children>
+                                                <BorderPane prefHeight="485.0" prefWidth="1092.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                   <left>
+                                                      <AnchorPane prefHeight="485.0" prefWidth="421.0" style="-fx-background-color: white; -fx-border-color: grey;" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <Label fx:id="description1" layoutX="105.0" layoutY="321.0" prefHeight="65.0" prefWidth="243.0" wrapText="true" />
+                                                            <Label fx:id="price1" layoutX="105.0" layoutY="386.0" prefHeight="35.0" prefWidth="114.0" />
+                                                            <Button layoutX="220.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
+                                                            <ImageView fx:id="photo1" fitHeight="234.0" fitWidth="265.0" layoutX="99.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <Button fx:id="previousItemButton" layoutX="369.0" layoutY="447.0" mnemonicParsing="false" onAction="#previousButtonPressed">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="567.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../Dev/onlineshopproject/Resources/icons/back.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Label fx:id="itemName1" layoutX="99.0" layoutY="283.0" prefHeight="38.0" prefWidth="247.0" wrapText="true">
+                                                               <font>
+                                                                  <Font name="System Bold Italic" size="13.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children>
+                                                      </AnchorPane>
+                                                   </left>
+                                                   <center>
+                                                      <AnchorPane prefHeight="485.0" prefWidth="313.0" style="-fx-border-color: grey; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <ImageView fx:id="photo2" fitHeight="250.0" fitWidth="310.0" layoutX="155.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <Label fx:id="description2" layoutX="176.0" layoutY="324.0" prefHeight="65.0" prefWidth="243.0" wrapText="true" />
+                                                            <Label fx:id="price2" layoutX="180.0" layoutY="385.0" prefHeight="35.0" prefWidth="114.0" />
+                                                            <Button layoutX="294.0" layoutY="389.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
+                                                            <Label fx:id="itemName2" layoutX="177.0" layoutY="286.0" prefHeight="38.0" prefWidth="241.0" wrapText="true">
+                                                               <font>
+                                                                  <Font name="System Bold Italic" size="13.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children></AnchorPane>
+                                                   </center>
+                                                   <right>
+                                                      <AnchorPane prefHeight="485.0" prefWidth="387.0" style="-fx-border-color: grey; -fx-background-color: white;" BorderPane.alignment="CENTER">
+                                                         <children>
+                                                            <ImageView fx:id="photo3" fitHeight="239.0" fitWidth="262.0" layoutX="83.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
+                                                            <Label fx:id="description3" layoutX="83.0" layoutY="323.0" prefHeight="65.0" prefWidth="237.0" wrapText="true" />
+                                                            <Label fx:id="price3" layoutX="83.0" layoutY="384.0" prefHeight="35.0" prefWidth="114.0" />
+                                                            <Button layoutX="195.0" layoutY="388.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
+                                                            <Button fx:id="nextItemButton" layoutX="6.0" layoutY="447.0" mnemonicParsing="false" onAction="#nextItemButtonPressed">
+                                                               <graphic>
+                                                                  <ImageView fitHeight="712.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                                                     <image>
+                                                                        <Image url="@../../../../Dev/onlineshopproject/Resources/icons/next.png" />
+                                                                     </image>
+                                                                  </ImageView>
+                                                               </graphic>
+                                                            </Button>
+                                                            <Label fx:id="itemName3" layoutX="89.0" layoutY="285.0" prefHeight="38.0" prefWidth="225.0" wrapText="true">
+                                                               <font>
+                                                                  <Font name="System Bold Italic" size="13.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </children></AnchorPane>
+                                                   </right>
+                                                </BorderPane>
+                                             </children>
+                                          </AnchorPane>
                                        </content>
                                   </Tab>
                                   <Tab text="Furniture">
                                        <content>
-                                          <Pagination fx:id="furniturePagination" maxPageIndicatorCount="5" pageCount="30" prefHeight="200.0" prefWidth="200.0" />
+                                          <AnchorPane prefHeight="200.0" prefWidth="200.0" />
                                        </content>
                                   </Tab>
                                     <Tab text="Foods and drinks">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <Pagination fx:id="foodsAndDrinkPagination" layoutX="-6.0" maxPageIndicatorCount="5" pageCount="30" prefHeight="378.0" prefWidth="982.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children></AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                       </content>
                                     </Tab>
                                     <Tab text="Clothing">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <Pagination fx:id="clothingPagination" layoutX="73.0" layoutY="8.0" maxPageIndicatorCount="5" pageCount="30" prefHeight="378.0" prefWidth="982.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children></AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                       </content>
                                     </Tab>
                                     <Tab text="Sports and outdoor">
                                       <content>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                             <children>
-                                                <Pagination fx:id="sportsAndOutDoorPagation" layoutX="72.0" maxPageIndicatorCount="5" pageCount="30" prefHeight="378.0" prefWidth="982.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                             </children></AnchorPane>
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                       </content>
                                     </Tab>
-                                    <Tab text="Untitled Tab">
+                                    <Tab text="Electronics">
                                       <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                                       </content>
