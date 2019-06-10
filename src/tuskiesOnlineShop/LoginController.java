@@ -147,6 +147,7 @@ public class LoginController {
     			ResultSet resultSet = statement.executeQuery("SELECT username FROM users;")) {
     	
     	 Boolean invalidDetails = false;
+    	 
     	 if (firstName.getText().equals("")) {
     		 invalidDetails = true;
 			firstnameError.setText("*required field");

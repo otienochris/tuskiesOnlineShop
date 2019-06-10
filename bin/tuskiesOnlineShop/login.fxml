@@ -93,7 +93,7 @@
                                     <HBox prefHeight="48.0" prefWidth="888.0">
                                        <children>
                                           <TextField fx:id="lastName" prefHeight="25.0" prefWidth="237.0" promptText="last name" />
-                                          <Text fx:id="lastnameError" fill="#c30404" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="184.7294921875">
+                                          <Text fx:id="lastnameError" fill="#c30404" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="189.7294921875">
                                              <font>
                                                 <Font name="System Italic" size="18.0" />
                                              </font>

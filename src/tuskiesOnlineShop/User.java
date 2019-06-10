@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.scene.control.Button;
 
 public class User {
 	private final IntegerProperty id = new SimpleIntegerProperty();
@@ -14,6 +15,8 @@ public class User {
 	private final StringProperty email = new SimpleStringProperty();
 	private final StringProperty userName = new SimpleStringProperty();
 	private final BooleanProperty isAdmin = new SimpleBooleanProperty();
+	
+	Button updateButton;
 
 //	property types
 	public StringProperty emailProperty() {

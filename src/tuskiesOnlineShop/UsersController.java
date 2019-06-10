@@ -6,12 +6,15 @@ import java.sql.ResultSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 //import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 //import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 //import javafx.util.Callback;
 
 public class UsersController {
@@ -88,43 +91,9 @@ public class UsersController {
     		colUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
     		colIsadmin.setCellValueFactory(new PropertyValueFactory<>("isAdmin"));
     		
-			/*
-			 * // lets create a cell factory to insert buttons in every row
-			 * 
-			 * Callback< TableColumn<User,String>, TableCell<User,String> > cellFactory =
-			 * (param) -> { // make the tableCell containing the button final
-			 * TableCell<User, String> cell = new TableCell<User, String>(){ // override the
-			 * updateItem method
-			 * 
-			 * public void updateItem(String item, Boolean empty) { super.updateItem(item,
-			 * empty);
-			 * 
-			 * // ensure that cell is created only in non-empty rows
-			 * 
-			 * if (empty) { setGraphic(null); setText(null); }else { // now we can create
-			 * the button final Button editButton = new Button("Edit");
-			 * 
-			 * // attach listener to the button, what to do when it's clicked
-			 * editButton.setOnAction(event -> { // extract the selected User object
-			 * 
-			 * User user = getTableView().getItems().get(getIndex()); // lets show which
-			 * item has been selected
-			 * 
-			 * Alert alert = new Alert(Alert.AlertType.INFORMATION);
-			 * 
-			 * alert.setContentText("You have clicked on " + user.getUserName() +
-			 * " with email " + user.getEmail()); alert.show();
-			 * 
-			 * } ); // set the created button to the cell setGraphic(editButton);
-			 * setText(null); } }
-			 * 
-			 * };
-			 * 
-			 * return cell; // return the cell created };
-			 * 
-			 * // set the custom factory to the edit column
-			 * colEdit.setCellFactory(cellFactory);
-			 */
+			
+			 // lets create a cell factory to insert buttons in every row
+			 
 
 //    		set the columns to the tableView
     		tableUser.setItems(list);

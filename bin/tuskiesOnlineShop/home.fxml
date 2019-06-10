@@ -32,7 +32,7 @@
                                                          <children>
                                                             <Label fx:id="description1" layoutX="105.0" layoutY="321.0" prefHeight="65.0" prefWidth="243.0" wrapText="true" />
                                                             <Label fx:id="price1" layoutX="105.0" layoutY="386.0" prefHeight="35.0" prefWidth="114.0" />
-                                                            <Button layoutX="220.0" layoutY="390.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
+                                                            <Button fx:id="addToCart1" layoutX="220.0" layoutY="390.0" mnemonicParsing="false" onAction="#addToCart1ButtonPressed" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
                                                             <ImageView fx:id="photo1" fitHeight="234.0" fitWidth="265.0" layoutX="99.0" layoutY="49.0" pickOnBounds="true" preserveRatio="true" />
                                                             <Button fx:id="previousItemButton" layoutX="369.0" layoutY="447.0" mnemonicParsing="false" onAction="#previousButtonPressed">
                                                                <graphic>
@@ -57,7 +57,7 @@
                                                             <ImageView fx:id="photo2" fitHeight="250.0" fitWidth="310.0" layoutX="155.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" />
                                                             <Label fx:id="description2" layoutX="176.0" layoutY="324.0" prefHeight="65.0" prefWidth="243.0" wrapText="true" />
                                                             <Label fx:id="price2" layoutX="180.0" layoutY="385.0" prefHeight="35.0" prefWidth="114.0" />
-                                                            <Button layoutX="294.0" layoutY="389.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
+                                                            <Button fx:id="addToCart2" layoutX="294.0" layoutY="389.0" mnemonicParsing="false" onAction="#addToCart2ButtonPressed" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
                                                             <Label fx:id="itemName2" layoutX="177.0" layoutY="286.0" prefHeight="38.0" prefWidth="241.0" wrapText="true">
                                                                <font>
                                                                   <Font name="System Bold Italic" size="13.0" />
@@ -71,7 +71,7 @@
                                                             <ImageView fx:id="photo3" fitHeight="239.0" fitWidth="262.0" layoutX="83.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
                                                             <Label fx:id="description3" layoutX="83.0" layoutY="323.0" prefHeight="65.0" prefWidth="237.0" wrapText="true" />
                                                             <Label fx:id="price3" layoutX="83.0" layoutY="384.0" prefHeight="35.0" prefWidth="114.0" />
-                                                            <Button layoutX="195.0" layoutY="388.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
+                                                            <Button fx:id="addToCart3" layoutX="195.0" layoutY="388.0" mnemonicParsing="false" onAction="#addToCart3ButtonPressed" prefHeight="26.0" prefWidth="127.0" text="add to cart" />
                                                             <Button fx:id="nextItemButton" layoutX="6.0" layoutY="447.0" mnemonicParsing="false" onAction="#nextItemButtonPressed">
                                                                <graphic>
                                                                   <ImageView fitHeight="712.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
@@ -167,7 +167,7 @@
                   </ImageView>
                </graphic>
           </Tab>
-          <Tab text="Cart">
+          <Tab onSelectionChanged="#loadData" text="Cart">
                <graphic>
                   <ImageView fitHeight="25.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -178,13 +178,15 @@
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TableView prefHeight="451.0" prefWidth="942.0">
+                        <TableView fx:id="cartTable" prefHeight="558.0" prefWidth="943.0">
                           <columns>
-                            <TableColumn prefWidth="298.0" text="Image" />
-                            <TableColumn minWidth="0.0" prefWidth="145.0" text="Description" />
-                              <TableColumn minWidth="0.0" prefWidth="145.0" text="units" />
-                              <TableColumn minWidth="0.0" prefWidth="151.0" text="units" />
-                              <TableColumn minWidth="0.0" prefWidth="98.0" text="units" />
+                              <TableColumn fx:id="colTitle" prefWidth="194.0" text="title" />
+                            <TableColumn fx:id="colDescription" minWidth="0.0" prefWidth="182.0" text="Description" />
+                              <TableColumn fx:id="colUnits" minWidth="0.0" prefWidth="105.0" text="units" />
+                              <TableColumn fx:id="colUnitPrice" minWidth="0.0" prefWidth="129.0" text="unit price" />
+                              <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="142.0" text="total" />
+                              <TableColumn fx:id="colUpdate" minWidth="0.0" prefWidth="83.0" text="update" />
+                              <TableColumn fx:id="colDelete" minWidth="0.0" prefWidth="105.0" text="delete" />
                           </columns>
                         </TableView>
                         <VBox prefHeight="451.0" prefWidth="164.0">
