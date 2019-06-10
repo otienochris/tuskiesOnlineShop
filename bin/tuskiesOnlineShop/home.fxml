@@ -123,20 +123,21 @@
                            </center></BorderPane>
                         <ToolBar layoutX="8.0" layoutY="-6.0" prefHeight="40.0" prefWidth="594.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <items>
-                              <Label prefHeight="15.0" prefWidth="166.0" />
-                              <TextField prefHeight="25.0" prefWidth="341.0" promptText="enter product to search" />
-                            <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="74.0">
+                              <Label prefHeight="15.0" prefWidth="249.0" />
+                              <ComboBox fx:id="filterBYComboBox" prefHeight="25.0" prefWidth="158.0" promptText="Filter by ..." visible="false" />
+                              <ComboBox fx:id="filterByComboBox2" prefHeight="25.0" prefWidth="159.0" visible="false" />
+                              <Button fx:id="filterButton" mnemonicParsing="false" onAction="#filterButtonPressed" prefHeight="37.0" prefWidth="88.0" style="-fx-border-radius: 10;" text="filter" visible="false">
                                  <graphic>
-                                    <ImageView fitHeight="19.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="30.0">
+                                    <ImageView fitHeight="27.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../../../../Dev/onlineshopproject/Resources/icons/015-find.png" />
+                                          <Image url="@../../../../Dev/onlineshopproject/Resources/icons/filter.png" />
                                        </image>
                                     </ImageView>
                                  </graphic>
                               </Button>
-                              <Label prefHeight="15.0" prefWidth="482.0" />
+                              <Label prefHeight="15.0" prefWidth="311.0" />
                               <Button fx:id="signinSignupBtn" mnemonicParsing="false" onAction="#signinSignupButtonPushed" prefHeight="32.0" prefWidth="133.0" text="login / Sign up" />
-                              <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="59.0">
+                              <Button fx:id="allUsersButton" mnemonicParsing="false" onAction="#allUsersButtonPressed" prefHeight="32.0" prefWidth="59.0">
                                  <graphic>
                                     <ImageView fitHeight="22.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -178,20 +179,33 @@
                <content>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TableView fx:id="cartTable" prefHeight="558.0" prefWidth="943.0">
+                        <TableView fx:id="cartTable" prefHeight="558.0" prefWidth="613.0">
                           <columns>
                               <TableColumn fx:id="colTitle" prefWidth="194.0" text="title" />
                             <TableColumn fx:id="colDescription" minWidth="0.0" prefWidth="182.0" text="Description" />
                               <TableColumn fx:id="colUnits" minWidth="0.0" prefWidth="105.0" text="units" />
                               <TableColumn fx:id="colUnitPrice" minWidth="0.0" prefWidth="129.0" text="unit price" />
-                              <TableColumn fx:id="colTotal" minWidth="0.0" prefWidth="142.0" text="total" />
-                              <TableColumn fx:id="colUpdate" minWidth="0.0" prefWidth="83.0" text="update" />
-                              <TableColumn fx:id="colDelete" minWidth="0.0" prefWidth="105.0" text="delete" />
                           </columns>
                         </TableView>
-                        <VBox prefHeight="451.0" prefWidth="164.0">
+                        <VBox prefHeight="558.0" prefWidth="187.0" spacing="20.0" style="-fx-border-color: grey;">
                            <children>
-                              <StackPane prefHeight="150.0" prefWidth="200.0" />
+                              <StackPane prefHeight="76.0" prefWidth="162.0">
+                                 <children>
+                                    <Label prefHeight="52.0" prefWidth="33.0" text="Total" />
+                                 </children></StackPane>
+                              <Label fx:id="totalLabel" prefHeight="36.0" prefWidth="185.0" style="-fx-border-color: green;">
+                                 <font>
+                                    <Font name="System Bold" size="19.0" />
+                                 </font></Label>
+                              <Button fx:id="checkOutButton" mnemonicParsing="false" onAction="#handleCheckOut" prefHeight="33.0" prefWidth="185.0" style="-fx-background-color: green;" text="Check Out" textFill="#eeeaea">
+                                 <font>
+                                    <Font name="System Bold" size="17.0" />
+                                 </font></Button>
+                              <Button fx:id="deleteRowButton" mnemonicParsing="false" onAction="#deleteRowButtonPressed" prefHeight="26.0" prefWidth="188.0" style="-fx-background-color: red;" text="Delete selected row" textFill="#f8f4f4">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </VBox>
                      </children>
@@ -210,7 +224,7 @@
                   </ImageView>
                </graphic>
             </Tab>
-            <Tab text="Admin">
+            <Tab fx:id="adminTab" text="Admin">
                <content>
                   <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
                     <tabs>

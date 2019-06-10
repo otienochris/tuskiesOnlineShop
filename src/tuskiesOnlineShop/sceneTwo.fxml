@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitMenuButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tuskiesOnlineShop.MainController">
+   <children>
+      <Label fx:id="YourOrder" layoutX="142.0" layoutY="14.0" prefHeight="62.0" prefWidth="361.0" text="Method of Payment" textFill="#16e026">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="Cancel" cancelButton="true" layoutX="258.0" layoutY="340.0" mnemonicParsing="false" onAction="#handleClose" text="back">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="mpesaButton" layoutX="248.0" layoutY="105.0" mnemonicParsing="false" onAction="#sceneFour" prefHeight="25.0" prefWidth="87.0" text="mpesa" />
+      <Button fx:id="creditCardButton" layoutX="248.0" layoutY="156.0" mnemonicParsing="false" onAction="#sceneThree" text="creditCard" />
+   </children>
+</AnchorPane>

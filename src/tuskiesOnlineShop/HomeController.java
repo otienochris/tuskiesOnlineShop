@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -35,7 +38,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class HomeController implements Initializable {
-
+	
+	
 	@FXML
 	private Button signinSignupBtn;
 
@@ -51,6 +55,8 @@ public class HomeController implements Initializable {
 
 	public void signinSignupButtonPushed(ActionEvent event) throws IOException {
 
+		adminTab.setDisable(true);
+		
 		Parent signinSignupParent = FXMLLoader.load(getClass().getResource("/tuskiesOnlineShop/login.fxml"));
 
 		Scene signinSignupScene = new Scene(signinSignupParent);
@@ -107,32 +113,24 @@ public class HomeController implements Initializable {
 
 	@FXML
 	public void addImageButtonPressed(ActionEvent event) throws MalformedURLException {
-
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Select Image File");
 		
 		// limit file chooser to image file
-		
 		fileChooser.getExtensionFilters()
 				.addAll(new FileChooser.ExtensionFilter("Image Files", "*.bmp", "*.png","*.jpeg", "*.jpg", "*.gif")); 
 
 		File selectedFile = fileChooser.showOpenDialog(fileSelected.getScene().getWindow());
 
 		if (selectedFile != null) {
-
 			imageFile = selectedFile.toURI().toURL().toString();
-
 			Image image = new Image(imageFile);
-
 			imageView.setImage(image);
-
 		}
-
 	}
 
 	@FXML
 	public void addNewItemButtonPressed(ActionEvent event) {
-//		addItemLabel.setText("");
 
 		String addItem = "INSERT INTO products"
 				+ "(productName, imagePath, serialNumber,unitPrice,quantity, category, subCategory, description)"
@@ -155,24 +153,52 @@ public class HomeController implements Initializable {
 
 			addItemLabel.setText("Request Successful");
 			
-			
+			imageView.setImage(null);
+			productNameTextField.setText("");
+			descriptionTextArea.setText("");
+			unitPriceTextField.setText("");
+			serialNumberTextField.setText("");
+			quantityTextField.setText("");
+			categoryComboBox.setValue("");
+			subCategoryComboBox.setValue("");
 
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
 	}
 
+	int count = 3; // keeps track of the current row in the result set
+	int productId1, productId2, productId3; // temporary variables for the current product ids
 	@FXML
-	public void menuButtonPressed(ActionEvent event) {
+	private Tab adminTab;
+	@FXML
+	private Button allUsersButton;
 
+//	a variable that stores true if logged in user is administrator else false
+	public static boolean isAdmin;
+	
+	public boolean isAdmin() {
+		return isAdmin;
 	}
 
-	int count = 3; // keeps track of the current row in the result set
-	int productId1, productId2, productId3; // temporary variables for the current product id
-	
-	
+	public static void setAdmin(boolean admin) {
+		isAdmin = admin;
+	}
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+	
+		
+		adminTab.setDisable(true); // login with administrators credentials to enable
+		previousItemButton.setDisable(true); // no previous items initially
+		allUsersButton.setDisable(true); // only admin can view users
+		
+		if (isAdmin) {
+//			give administrative privileges
+			adminTab.setDisable(false);
+			allUsersButton.setDisable(false);
+		}
+		
 		new DBConnection("onlineshop", "chris", "Otienochris5007*");
 
 		try (Connection connection = DBConnection.getConnection();
@@ -185,44 +211,23 @@ public class HomeController implements Initializable {
 					switch (i) {
 					case 1:
 						productId1 = resultSet.getInt("productId");
-						
-						Image image = new Image(resultSet.getString("imagePath"));
-						photo1.setImage(image);
-						itemName1.setText(resultSet.getString("productName"));
-						price1.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-						description1.setText(resultSet.getString("description"));
-						
+						setProductAttributes(photo1, itemName1, price1, description1, resultSet);
 						break;
 					case 2:
 						productId2 = resultSet.getInt("productId");
-						
-						Image image2 = new Image(resultSet.getString("imagePath"));
-						photo2.setImage(image2);
-						itemName2.setText(resultSet.getString("productName"));
-						price2.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-						description2.setText(resultSet.getString("description"));
-						
+						setProductAttributes(photo2, itemName2, price2, description2, resultSet);
 						break;
 					case 3:
 						productId3 = resultSet.getInt("productId");
-						
-						Image image3 = new Image(resultSet.getString("imagePath"));
-						photo3.setImage(image3);
-						itemName3.setText(resultSet.getString("productName"));
-						price3.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-						description3.setText(resultSet.getString("description"));
-						
+						setProductAttributes(photo3, itemName3, price3, description3, resultSet);
 						break;
-
 					}
 				}
 			}
-			System.out.println(productId1);
-			System.out.println(productId2);
-			System.out.println(productId3);
+			
 
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 
 //		combo boxes
@@ -248,8 +253,11 @@ public class HomeController implements Initializable {
 		
 		
 		// initialize cart
+		CartTable2 = cartTable;
+		fillCheckOutLabel();
 		initTable();
 		loadData();
+		
 	}
 
 	/**
@@ -282,7 +290,8 @@ public class HomeController implements Initializable {
 	@FXML
 	public void deleteSearchButtonPressed(ActionEvent event) {
 		deleteItemInfoLabel.setText("");
-
+		successDeleteMessageLabel.setText("");
+		
 		String searchQuery = "SELECT * FROM products";
 
 		new DBConnection("onlineshop", "chris", "Otienochris5007*");
@@ -320,9 +329,9 @@ public class HomeController implements Initializable {
 
 	@FXML
 	public void deleteItemButtonPressed(ActionEvent event) {
-
+		successDeleteMessageLabel.setText("");
+		
 		if (itemFound) {
-
 			String idDeleteQuery = "DELETE FROM products where productId = ?";
 
 			new DBConnection("onlineshop", "chris", "Otienochris5007*");
@@ -330,15 +339,35 @@ public class HomeController implements Initializable {
 					PreparedStatement preparedStatement = connection.prepareStatement(idDeleteQuery);) {
 
 				preparedStatement.setInt(1, Integer.parseInt(deleteSearchTextField.getText()));
-
 				preparedStatement.executeUpdate();
 
+				deleteImageView.setImage(null);
+				deleteLabel.setText("");
 				successDeleteMessageLabel.setText("deletion successful");
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	/**
+	 * Admin login
+	 */
+	@FXML
+	Button allUsers;
+	@FXML
+	private void allUsersButtonPressed(ActionEvent event) throws IOException {
+		
+		Parent allUsersParent = FXMLLoader.load(getClass().getResource("/tuskiesOnlineShop/Users.fxml"));
+
+		Scene allScene = new Scene(allUsersParent);
+
+//		this gets the stage's information
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+		stage.setScene(allScene);
+		stage.show();
 	}
 	
 	@FXML
@@ -378,55 +407,50 @@ public class HomeController implements Initializable {
 	Label itemName3;
 
 	ResultSet resultSet1;
+	
+	String searchCriteriaString =  " ";
 
 	/**
 	 * Electronics tab
 	 */
-
+	@FXML
 	public void nextItemButtonPressed() throws SQLException {
 		
 		try (Connection connection = DBConnection.getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM products")) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM products " + searchCriteriaString )) {
 			
+//			move cursor to the current item location
 			for (int i = 0; i < count; i++) {
 				resultSet.next();
 			}
-
-		 for (int i = 1; i < 4; i++) { 
+			
+//			no more previous items
+			if (count >= 3) {
+				previousItemButton.setDisable(false);
+			}
+			
+		 for (int i = 1; i < 4; i++) {
+//			 move to next row
 			 if (resultSet.next()) {
-				 count++;
+				 count++; // move cursor to the next row in resultSet
 				 switch (i) { 
 				 	case 1:
 				 		productId1 = resultSet.getInt("productId");
-				 		
-				 		Image image = new Image(resultSet.getString("imagePath"));
-				 		photo1.setImage(image);
-				 		itemName1.setText(resultSet.getString("productName"));
-				 		price1.setText( "Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-				 		description1.setText(resultSet.getString("description")); 
+				 		setProductAttributes(photo1, itemName1, price1, description1, resultSet);
 				 		break; 
 				 	case 2:
 				 		productId2 = resultSet.getInt("productId");
-				 		
-				 		Image image2 = new Image(resultSet.getString("imagePath"));
-				 		photo2.setImage(image2);
-				 		itemName2.setText(resultSet.getString("productName"));
-				 		price2.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-				 		description2.setText(resultSet.getString("description")); 
+				 		setProductAttributes(photo2, itemName2, price2, description2, resultSet);
 				 		break; 
 				 	case 3:
 				 		productId3 = resultSet.getInt("productId");
-				 		
-						 Image image3 = new Image(resultSet.getString("imagePath"));
-						 photo3.setImage(image3);
-						 itemName3.setText(resultSet.getString("productName"));
-						 price3.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-						 description3.setText(resultSet.getString("description")); 
-						 break;
+						setProductAttributes(photo3, itemName3, price3, description3, resultSet);
+						break;
 		  
 				 	} 
-				 } 
+				 } else nextItemButton.setDisable(true);
+			 
 			 }
 		 } catch (Exception e) {
 			e.printStackTrace();
@@ -437,13 +461,21 @@ public class HomeController implements Initializable {
 	/**
 	 * previous button pressed
 	 */
+	@FXML
 	public void previousButtonPressed() {
 		
-		if (count > 3) { count -= 3; }
+		if (count > 3) { 
+			count -= 3;
+		}
+//		no more previous items to be viewed
+		if (count <= 3) {
+			previousItemButton.setDisable(true);
+			
+		}
 		
 		try (Connection connection = DBConnection.getConnection();
 				Statement statement = connection.createStatement();
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM products")) {
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM products " + searchCriteriaString)) {
 			
 //			moves cursor to the current row in the result set
 			for (int i = 0; i < count; i++) {
@@ -452,35 +484,22 @@ public class HomeController implements Initializable {
 
 		 for (int i = 1; i < 4; i++) { 
 			 if (resultSet.previous()) { 
+				 nextItemButton.setDisable(false);
 				 switch (i) { 
 				 	case 3:
 				 		productId1 = resultSet.getInt("productId");
-				 		
-				 		Image image = new Image(resultSet.getString("imagePath"));
-				 		photo1.setImage(image);
-				 		itemName1.setText(resultSet.getString("productName"));
-				 		price1.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-				 		description1.setText(resultSet.getString("description")); 
+				 		setProductAttributes(photo1, itemName1, price1, description1, resultSet);
 				 		break; 
 				 	case 2:
 				 		productId2 = resultSet.getInt("productId");
 				 		
-				 		Image image2 = new Image(resultSet.getString("imagePath"));
-				 		photo2.setImage(image2);
-				 		itemName2.setText(resultSet.getString("productName"));
-				 		price2.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-				 		description2.setText(resultSet.getString("description")); 
+				 		setProductAttributes(photo2, itemName2, price2, description2, resultSet);
+				 		
 				 		break; 
 				 	case 1:
 				 		productId3 = resultSet.getInt("productId");
-				 		
-						 Image image3 = new Image(resultSet.getString("imagePath"));
-						 photo3.setImage(image3);
-						 itemName3.setText(resultSet.getString("productName"));
-						 price3.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
-						 description3.setText(resultSet.getString("description")); 
-						 break;
-		  
+				 		setProductAttributes(photo3, itemName3, price3, description3, resultSet);  
+						break;  
 				 	} 
 				 } 
 			 }
@@ -489,12 +508,26 @@ public class HomeController implements Initializable {
 		}
 	}
 	
-	
+//	sets up the products for view
+	private void setProductAttributes(ImageView photo, Label itemName, Label price, 
+			Label description, ResultSet resultSet) throws SQLException {
+		
+		Image image = new Image(resultSet.getString("imagePath"));
+		photo.setImage(image);
+		 
+		itemName.setText(resultSet.getString("productName"));
+		price.setText("Kshs " + Float.toString(resultSet.getFloat("unitPrice")));
+		description.setText(resultSet.getString("description"));
+	}
+
 	/**
 	 * The cart section
 	 */
 	@FXML
     private TableView<CartProduct> cartTable;
+	
+	public static TableView<CartProduct> CartTable2;
+	
     @FXML
     private TableColumn<CartProduct, String> colUnits;
 	@FXML
@@ -510,7 +543,7 @@ public class HomeController implements Initializable {
 	@FXML
 	private TableColumn<CartProduct, String> colTitle;
 	
-	ObservableList<CartProduct> tableData = FXCollections.observableArrayList();
+	public static ObservableList<CartProduct> tableData = FXCollections.observableArrayList();
 	
 	private void initTable() {
 		initCols();
@@ -522,21 +555,21 @@ public class HomeController implements Initializable {
 		colDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
 		colUnits.setCellValueFactory(new PropertyValueFactory<>("units"));
 		colUnitPrice.setCellValueFactory(new PropertyValueFactory<>("unitPrice"));
-		colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
-		colUpdate.setCellValueFactory(new PropertyValueFactory<>("update"));
-		colDelete.setCellValueFactory(new PropertyValueFactory<>("delete"));
 		
-//		editableCols();
+		editableCols();
 	}
 	
-	/*
-	 * private void editableCols() {
-	 * colUnits.setCellFactory(TextFieldTableCell.forTableColumn()); //
-	 * colUnits.setCellFactory(TextFieldTableCell.forTableColumn());
-	 * colUnits.setOnEditCommit(e -> { int row = e.getTablePosition().getRow();
-	 * e.getTableView().getItems().get(row).setUnits(Integer.parseInt(e.getNewValue(
-	 * ))); }); cartTable.setEditable(true); }
-	 */
+	 private void editableCols() {
+		 cartTable.setEditable(true);
+		 colUnits.setCellFactory(TextFieldTableCell.forTableColumn());
+		 colUnits.setOnEditCommit(e -> {
+			 int row = e.getTablePosition().getRow();
+			 e.getTableView().getItems().get(row).setUnits(e.getNewValue());
+			 fillCheckOutLabel();
+			 
+		 });
+	 }
+	 
 	
 	
 	/**
@@ -545,68 +578,139 @@ public class HomeController implements Initializable {
 	 */
 	public void addToCart1ButtonPressed() {
 		
-		new DBConnection("onlineshop", "chris", "Otienochris5007*");
-		try(Connection connection = DBConnection.getConnection();
-				Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-						ResultSet.CONCUR_READ_ONLY);
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM products WHERE productId = " + productId1);
-				) {
-			
-			while (resultSet.next()) {
-				tableData.add(new CartProduct(resultSet.getString("productName"), 1, resultSet.getString("description"), 
-					resultSet.getDouble("unitPrice"), resultSet.getDouble("unitPrice"), 
-					new Button("Update"), new Button("Delete")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		addToCartAidingFunction(productId1);
 	}
 	public void addToCart2ButtonPressed() {
 		
-		new DBConnection("onlineshop", "chris", "Otienochris5007*");
-		try(Connection connection = DBConnection.getConnection();
-				Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
-						ResultSet.CONCUR_READ_ONLY);
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM products WHERE productId = " + productId2);
-				) {
-			
-			while (resultSet.next()) {
-				tableData.add(new CartProduct(resultSet.getString("productName"), 1, resultSet.getString("description"), 
-					resultSet.getDouble("unitPrice"), resultSet.getDouble("unitPrice"), 
-					new Button("Update"), new Button("Delete")));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		addToCartAidingFunction(productId2);
+	
 	}
 	public void addToCart3ButtonPressed() {
 		
+		addToCartAidingFunction(productId3);
+	}
+	
+	@FXML
+	private void loadData() {	
+		cartTable.setItems(tableData);
+	}
+
+	
+	@FXML
+	Label totalLabel;
+	
+	
+	private void addToCartAidingFunction(int productId) {
+		
 		new DBConnection("onlineshop", "chris", "Otienochris5007*");
 		try(Connection connection = DBConnection.getConnection();
 				Statement statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,
 						ResultSet.CONCUR_READ_ONLY);
-				ResultSet resultSet = statement.executeQuery("SELECT * FROM products WHERE productId = " + productId3);
+				ResultSet resultSet = statement.executeQuery("SELECT * FROM products WHERE productId = " + productId);
 				) {
 			
 			while (resultSet.next()) {
-				tableData.add(new CartProduct(resultSet.getString("productName"), 1, resultSet.getString("description"), 
-					resultSet.getDouble("unitPrice"), resultSet.getDouble("unitPrice"), 
-					new Button("Update"), new Button("Delete")));
+				tableData.add(new CartProduct(resultSet.getString("productName"), "1", resultSet.getString("description"), 
+					resultSet.getString("unitPrice")));
+				fillCheckOutLabel();
+				
+				inforAlert();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	@FXML
-	private void loadData() {
-		
-		cartTable.setItems(tableData);
+//	Alert function
+	private void inforAlert() {
+		Alert confirmationAlert = new Alert(AlertType.INFORMATION);
+		confirmationAlert.setContentText("Added successfully");
+		confirmationAlert.setHeaderText("Hurray");
+		confirmationAlert.show();
 	}
 	
-	// a function that uses the product id to add the item's info to the observable list
+	// total for checkout
+	private void fillCheckOutLabel() {
+		double total = 0.0;
+		
+		for (CartProduct cartProduct : tableData) {
+			total += Double.parseDouble(cartProduct.getUnitPrice()) * Integer.parseInt(cartProduct.getUnits());
+		}
+		totalLabel.setText("Ksh. " + Double.toString(total));
+	}
 	
+	@FXML
+	private void handleCheckOut(ActionEvent event) throws IOException {
+		Parent checkoutParent = FXMLLoader.load(getClass().getResource("/tuskiesOnlineShop/sceneTwo.fxml"));
+		Scene checkOutScene = new Scene(checkoutParent);
+//		this gets the stage's information
+		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		stage.setScene(checkOutScene);
+		stage.show();
+	}
 	
-	//load data
+	@FXML
+	private Button deleteRowButton;
+	
+	@FXML
+	private void deleteRowButtonPressed(ActionEvent event) {
+		double total = 0.0;
+//		get selected item
+		CartProduct deleteCartProduct = cartTable.getSelectionModel().getSelectedItem();
+//		remove from the table
+		cartTable.getItems().remove(deleteCartProduct);
+//		compute new total
+		for (CartProduct cartProduct : tableData) {
+			total += Double.parseDouble(cartProduct.getUnitPrice()) * Integer.parseInt(cartProduct.getUnits());
+		}
+//		set new total
+		totalLabel.setText("Ksh. " + Double.toString(total));
+//		load the data on the table
+		loadData();
+	}
+	
+//	shop tab : Filter section
+	@FXML
+	private Button filterButton;
+	@FXML
+	private ComboBox<String> filterBYComboBox;
+	@FXML
+	private ComboBox<String> filterByComboBox2;
+	
+	@FXML
+	private void filterButtonPressed() {
+		// TODO 
+		filterBYComboBox.setVisible(true);
+		filterByComboBox2.setVisible(true);
+		
+		filterByComboBox2.setDisable(true);
+		filterBYComboBox.getItems().addAll("Electronics", "Furniture", "Clothing", "Foodsatff", "Sports and Outdoor");
+		
+		filterBYComboBox.setOnAction(e -> {
+			String valueString = filterBYComboBox.getValue();
+			if (valueString.equals("Electronics")) {
+				filterByComboBox2.setDisable(false);
+				filterByComboBox2.getItems().clear();
+				filterByComboBox2.getItems().addAll("Phones", "Tablets", "Tv", "Woofers");
+			}else if (valueString.equals("Furniture")) {
+				filterByComboBox2.setDisable(false);
+				filterByComboBox2.getItems().clear();
+				filterByComboBox2.getItems().addAll("Office", "Home");
+			}else if (valueString.equals("Clothing")) {
+				filterByComboBox2.setDisable(false);
+				filterByComboBox2.getItems().clear();
+				filterByComboBox2.getItems().addAll("men","women","children","casual", "official","shoes");
+			}else if (valueString.equals("Foodstaff")) {
+				filterByComboBox2.getItems().clear();
+				filterByComboBox2.setDisable(false);
+			}else if (valueString.equals("Sports and Outdoor")) {
+				filterByComboBox2.setDisable(false);
+				filterByComboBox2.getItems().clear();
+			}
+		});
+		
+		searchCriteriaString = "WHERE category = " + filterBYComboBox.getValue() + " AND " + "subCategory = "
+		+ filterByComboBox2.getValue();
+	}
 	
 }

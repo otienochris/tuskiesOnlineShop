@@ -20,6 +20,8 @@ import java.sql.Statement;
 
 public class LoginController {
 
+	
+
 	@FXML
     private Text title;
 	
@@ -79,7 +81,9 @@ public class LoginController {
     
     @FXML
     private Button backButton;
-
+    
+    Boolean isadminBoolean;
+    
     @FXML
     private void handleLogin(ActionEvent event) throws IOException {
     	
@@ -94,11 +98,13 @@ public class LoginController {
     		Boolean valid = false;
     		
     		
+    		
     		while (resultSet.next()) {
-				
+    			System.out.println(isadminBoolean);
     			if (validUser(resultSet.getString("username"), resultSet.getString("password"))) {
-					resultSet.beforeFirst();
 					valid = true;
+					HomeController.setAdmin(true);
+					System.out.println(isadminBoolean);
 					break;
     			}
     		}
@@ -111,9 +117,16 @@ public class LoginController {
     		
 //    		if valid go to the home page
     		if (valid) {
-    			Parent homeViewParent = FXMLLoader.load(getClass().getResource("/tuskiesOnlineShop/home.fxml"));
+    			FXMLLoader loader = new FXMLLoader();
+    			
+    			loader.setLocation(getClass().getResource("/tuskiesOnlineShop/home.fxml"));
+    			
+    			Parent homeViewParent = loader.load();
     			
     			Scene homeScene = new Scene(homeViewParent);
+    			
+//    			HomeController homeController = loader.getController();
+ 
     			
     			Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
     			
